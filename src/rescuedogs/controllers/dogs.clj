@@ -5,9 +5,27 @@
             [rescuedogs.views.dogs :as view]
             [rescuedogs.models.dogs :as model]))
 
-(defn index [params]
-  (view/index (model/all) params)
-)
+(defn show [params]
+  (view/show (model/finddog params) (model/hitCount params) params)
+  )
+
+(defn addform [params]
+  (view/addform)
+  )
+
+(defn postform [params]
+  (def blahw params)
+  (map (fn [key] 
+         (println (get params key))
+         (println  key)
+         ) 
+       (keys params)
+       )
+;   (model/addDog params)
+  )
 
 (defroutes routes
-           (GET  "/" {params :params} (index params)))
+           (GET "/" {params :params} (show params))
+           (GET "/add" {params :params} (addform params))
+           (POST "/add" {params :params} (postform params))
+           )

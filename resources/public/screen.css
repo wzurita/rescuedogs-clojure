@@ -263,3 +263,32 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .clearfix:after, .container:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix, .container {display:block;}
 .clear {clear:both;}
+.center{
+	   text-align: center;
+   }
+   /*   PAGINATION     */
+   .pagination{
+	      margin: 5px 10px;
+      }
+      .pagination li, .pagination li ul {
+	         padding: 0px;
+		    display: inline;
+	    }
+	    .pagination li ul{
+		       margin: 0px 1em;
+	       }
+	       .pagination li a{
+		          margin: 0px 1px;
+			     padding: 3px 5px;
+			        outline: #8190a9 solid 1px;
+				   background: #c0d6fb;
+				      text-decoration: none;
+			      }
+			      .pagination li a:hover, .pagination a.selected{
+				         background: #ffff00;
+				 }
+				 .pagination .disabled, .pagination .disabled:hover{
+					    color: #6e6e6e;
+					       background: #c3c3c3;
+				       }
+				       /*    END     */

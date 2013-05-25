@@ -1,4 +1,4 @@
-(ns rescuedogs.views.layout
+(ns rescuedogs.views.layout 
   (:use [hiccup.core :only (html)]
         [hiccup.page :only (html5 include-css)]))
 
