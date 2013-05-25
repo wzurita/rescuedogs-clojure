@@ -2,6 +2,7 @@
   (:use [compojure.core :only (defroutes GET POST)])
   (:require [clojure.string :as str]
             [ring.util.response :as ring]
+            [ring.middleware.json :as rjson]
             [rescuedogs.views.dogs :as view]
             [rescuedogs.models.dogs :as model]))
 
@@ -15,13 +16,18 @@
 
 (defn postform [params]
   (def blahw params)
-  (map (fn [key] 
-         (println (get params key))
-         (println  key)
-         ) 
-       (keys params)
-       )
-;   (model/addDog params)
+;  (map (fn [key] 
+;         (println (get params key))
+;         (println  key)
+;         ) 
+;       (keys params)
+;       )
+  (def response (model/addDog params))
+  (if (> response 0)
+    (rjson/wrap-json-response {:response true :id response})
+    (rjson/wrap-json-response {:response false})   
+    )
+  
   )
 
 (defroutes routes

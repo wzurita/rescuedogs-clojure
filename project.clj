@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [ring/ring-jetty-adapter "1.1.6"]
+                 [org.clojure/data.json "0.2.2"]
                  [compojure "1.1.3"]
                  [hiccup "1.0.3"]
                  [uk.org.alienscience/leiningen-war "0.0.13"]]
