@@ -1,61 +1,70 @@
 (ns rescuedogs.views.dogs
-  (:use [hiccup.core ]
-        [hiccup.form ]
-        )
-  (:require [rescuedogs.views.layout :as layout]))
+  (:require [rescuedogs.views.layout :as layout]
+            [rescuedogs.views.pagination :as pagination]
+            [hiccup.form :as form]
+            [hiccup.core :as core]
+            )
+  )
 
 (defn addform-body []
   [:div.addDogForm 
-   (form-to [:post "/add"]
-            [:div.span-7.colborder
-             (label "breed" "Whats the breed of the dog?")
-             ]
-            [:div.span-7.last
-             (text-field "breed")
-             ]
-            [:div.span-7.colborder
-             (label "weight" "How much does the dog weight?")
-             ]
-            [:div.span-7.last
-             (text-field "weight")
-             ]
-            [:div.span-7.colborder
-             (label "birth" "When was the dog born? YYYYMMDD, please")
-             ]
-            [:div.span-7.last
-             (text-field "birth")
-             ]
-            
-            [:div.span-7.colborder
-             (label "location" "Where is the dog waiting for adoption?")
-             ]
-            [:div.span-7.last
-             (text-field "location")
-             ]
-            
-            [:div.span-7.colborder
-             (label "sex" "What' the sex of the dog?")
-             ]
-            [:div.span-7.last
-             (radio-button "sex" false "Male") 
-             [:span "Male"]
-             [:br]
-             (radio-button "sex" false "Female") 
-             [:span "Female"]
-             ]
-            [:div.span-7.colborder
-             (label "neutered" "Has the dog been neutered?")
-             ]
-            [:div.span-7.last
-             (check-box "neutered" false)
-             ]
-            [:div.span-8
-             [:span "&nbsp;"]
-             ]
-            [:div.span-7.last
-             (submit-button "Add dog!")
-             ]
-            )
+   (form/form-to [:post "/add"]
+                 [:div.span-7.colborder
+                  (form/label "breed" "Whats the breed of the dog?")
+                  ]
+                 [:div.span-7.last
+                  (form/text-field "breed")
+                  ]
+                 [:div.span-7.colborder
+                  (form/label "weight" "How much does the dog weight?")
+                  ]
+                 [:div.span-7.last
+                  (form/text-field "weight")
+                  ]
+                 [:div.span-7.colborder
+                  (form/label "birth" "When was the dog born? YYYYMMDD, please")
+                  ]
+                 [:div.span-7.last
+                  (form/text-field "birth")
+                  ]
+                 
+                 [:div.span-7.colborder
+                  (form/label "location" "Where is the dog waiting for adoption?")
+                  ]
+                 [:div.span-7.last
+                  (form/text-field "location")
+                  ]
+                 
+                 [:div.span-7.colborder
+                  (form/label "sex" "What' the sex of the dog?")
+                  ]
+                 [:div.span-7.last
+                  (form/radio-button "sex" false "Male") 
+                  [:span "Male"]
+                  [:br]
+                  (form/radio-button "sex" false "Female") 
+                  [:span "Female"]
+                  ]
+                 [:div.span-7.colborder
+                  (form/label "neutered" "Has the dog been neutered?")
+                  ]
+                 [:div.span-7.last
+                  (form/check-box "neutered" false)
+                  ]
+                 [:div.span-7.colborder
+                  (form/label "category" "What kind of dog?")
+                  ]
+                 [:div.span-7.last
+                  [:select {:name "category"} (form/select-options ["Puppy" "Small" "Medium" "Big"])
+                   ]
+                  ]
+                 [:div.span-8
+                  [:span "&nbsp;"]
+                  ]
+                 [:div.span-7.last
+                  (form/submit-button "Add dog!")
+                  ]
+                 )
    ]
   )
   
@@ -83,75 +92,7 @@
          ])
   )
 
-(defn calclink [number params]
-  (str (str "?page=" number)
-       
-       (reduce str (map (fn [param-key] 
-                          (if (not= :page param-key) 
-                            (str "&"  (name param-key) "=" (get params param-key))
-                            ""))
-                        (keys params)
-                        
-                        ))
-       )
-  )
 
-(defn pagination [dogcount items page params]
-  (def totalpage (quot dogcount items))
-  [:ul.pagination.center 
-   (if
-     (> page 0)
-     (list [:li
-            [:a {:href (calclink 0 params)} "&laquo;"]
-            ]
-           [:li
-            [:a {:href (calclink page params)} "&#9668;"]
-            ]
-           )
-     (list [:li
-            [:a {:class "disabled"} "&laquo;"]
-            ]
-           [:li
-            [:a {:class "disabled"} "&#9668;"]
-            ]
-           )
-     )
-   [:li 
-    [:ul
-     (map 
-       (fn [number] 
-         [:li 
-          (if (not= page number) 
-            [:a {:href (calclink number params)} number]
-            [:a {:class "selected"} number]
-            )
-          ]
-         )
-       (range
-         totalpage
-         )
-       )
-     ]
-    ]
-   (if
-     (< page (- totalpage 1))
-     (list [:li
-            [:a {:href (calclink (+ page 1) params)} "&#9658;"]
-            ]
-           [:li
-            [:a {:href (calclink (- totalpage 1) params)} "&raquo;"]
-            ]
-           )
-     (list [:li
-            [:a {:class "disabled"} "&#9658;"]
-            ]
-           [:li
-            [:a {:class "disabled"} "&raquo;"]
-            ]
-           )
-     )
-   ]
-  )
 
 (defn display-dogs [dogs items page]
   [:div {:id "maindiv"}
@@ -174,9 +115,9 @@
       )
     )
   (layout/common "All dogs" 
-                 []
+                 {}
                  params
-                 [:div (pagination dogcount items page params)]
+                 [:div (pagination/pagination dogcount items page params)]
                  (display-dogs dogs items page)
                  )
   )

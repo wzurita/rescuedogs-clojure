@@ -15,23 +15,23 @@
      [:div.container 
       [:h1 title]
       [:hr] 
-      [:h2.alt (get boxes "subtitle" "These dogs need a new home!")] 
+      [:h2.alt (get boxes :subtitle '([:a {:href "/" } "These dogs"] " need a new home!"))] 
       [:hr]
-      [:div.span-7.colborder (get boxes "leftbox" 
+      [:div.span-7.colborder (get boxes :leftbox 
                                   '(
-                                     [:h6 "Here's a box"] 
-                                     [:p "Lorem ipsum dolor sit amet, consectetur adipisicing elit"]
+                                     [:h6 "Add more dogs in need of rescue!"] 
+                                     [:a {:href "/add"} "with this link!"]
                                      )
                                   )
        ]
-      [:div.span-8.colborder (get boxes "centerbox" 
+      [:div.span-8.colborder (get boxes :centerbox
                                   '(
                                      [:h6 "And another box"] 
                                      [:p "Lorem ipsum dolor sit amet, consectetur adipisicing elit"]
                                      )
                                   )
        ]
-      [:div.span-7.last (get boxes "rightbox" 
+      [:div.span-7.last (get boxes :rightbox
                              '(
                                 [:h6 "This box is aligned with the sidebar"] 
                                 [:p "Lorem ipsum dolor sit amet, consectetur adipisicing elit"]
@@ -42,20 +42,20 @@
       [:hr.space]
       [:div.span-15.prepend-1.colborder body 
        [:hr]
-       [:div.span-7.colborder (get boxes "leftbottombox" 
+       [:div.span-7.colborder (get boxes :leftbottombox
                                    '(
                                       [:h6 "This box is aligned with the sidebar"] 
                                       [:p "Lorem ipsum dolor sit amet, consectetur adipisicing elit"]
                                       )
                                    )]
-       [:div.span-7.last (get boxes "rightbottombox" 
+       [:div.span-7.last (get boxes :rightbottombox
                               '(
                                  [:h6 "This box is aligned with the sidebar"] 
                                  [:p "Lorem ipsum dolor sit amet, consectetur adipisicing elit"]
                                  )
                               )]
        ]
-      [:div.span-7.last (get boxes "sidebar" 
+      [:div.span-7.last (get boxes :sidebar 
                              '(
                                 [:h3 "A simple sidebar"]
                                 [:p "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras ornare mattis nunc"]
@@ -63,7 +63,7 @@
                              )
        ]
       [:hr]
-      [:h2.alt (get boxes "footer" 
+      [:h2.alt (get boxes :footer
                     "You may pick and choose amongst these and many more features, so be bold."
                     )]
       ]
@@ -75,3 +75,17 @@
   (common "Page Not Found" [] []
           [:div {:id "four-oh-four"}
            "The page you requested could not be found"]))
+
+
+(defn calclink [number params]
+  (str (str "?page=" number)
+       
+       (reduce str (map (fn [param-key] 
+                          (if (not= :page param-key) 
+                            (str "&"  (name param-key) "=" (get params param-key))
+                            ""))
+                        (keys params)
+                        
+                        ))
+       )
+  )
