@@ -10,6 +10,12 @@
   [:div.addDogForm 
    (form/form-to [:post "/add"]
                  [:div.span-7.colborder
+                  (form/label "name" "Whats the name of the dog?")
+                  ]
+                 [:div.span-7.last
+                  (form/text-field "name")
+                  ]
+                 [:div.span-7.colborder
                   (form/label "breed" "Whats the breed of the dog?")
                   ]
                  [:div.span-7.last
@@ -72,10 +78,12 @@
 (defn display-dog [dog]
   (def dogid (get dog :id))
   (list [:div.listingImage 
-         [:a {:href (str "/dog?id=" dogid) :title ""} [:img {:alt (get dog :breed) :src (str "/img/" dogid ".jpg")}]] 
+         [:a {:href (str "/dog?id=" dogid) :title ""} [:img {:alt (get dog :breed) :src (str "http://placedog.com/150/150?" (rand))}]] 
          ]
         [:div.listingText 
          [:a {:href (str "/dog?id=" dogid) }]
+         [:br] 
+         "Name:" (get dog :name) 
          [:br] 
          "Breed:" (get dog :breed) 
          [:br] 
@@ -115,7 +123,10 @@
       )
     )
   (layout/common "All dogs" 
-                 {}
+                 {:leftbox '(
+                              [:h6 "Add more dogs in need of rescue!"] 
+                              [:a {:href "/add"} "with this link!"]
+                              )}
                  params
                  [:div (pagination/pagination dogcount items page params)]
                  (display-dogs dogs items page)
@@ -123,7 +134,7 @@
   )
 (defn addform []
   (layout/common "Add a dog"
-                 [];otherboxes
+                 {:subtitle '([:a {:href "/" } "These dogs"] " need a new home!")};otherboxes
                  {};params 
                  (addform-body)
                  )

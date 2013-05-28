@@ -15,12 +15,12 @@
      [:div.container 
       [:h1 title]
       [:hr] 
-      [:h2.alt (get boxes :subtitle '([:a {:href "/" } "These dogs"] " need a new home!"))] 
+      [:h2.alt (get boxes :subtitle "These dogs need a new home!")] 
       [:hr]
       [:div.span-7.colborder (get boxes :leftbox 
                                   '(
-                                     [:h6 "Add more dogs in need of rescue!"] 
-                                     [:a {:href "/add"} "with this link!"]
+                                     [:h6 "A box"] 
+                                     [:p "Lorem ipsum dolor sit amet, consectetur adipisicing elit"]
                                      )
                                   )
        ]
