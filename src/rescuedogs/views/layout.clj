@@ -1,6 +1,6 @@
 (ns rescuedogs.views.layout 
   (:use [hiccup.core :only (html)]
-        [hiccup.page :only (html5 include-css)]))
+        [hiccup.page :only (html5 include-css include-js)]))
 
 (defn common [title boxes param & body]
   (html5
@@ -10,6 +10,8 @@
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1, maximum-scale=1"}]
      [:title title]
      (include-css "print.css" "screen.css")
+     (include-js "/js/jquery-1.10.0.min.js" "/js/jquery.form.min.js" )
+     (map (fn [script] (include-js script) ) (get boxes :javascript []))
      ]
     [:body
      [:div.container 

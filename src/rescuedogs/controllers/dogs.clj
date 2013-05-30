@@ -18,7 +18,7 @@
   (def response (model/addDog params))
   (if (> response 0)
     (json/write-str {:response true :id response})
-    (json/write-str {:response false})   
+    (json/write-str {:response false :message "error in the backend"})   
     )
   
   )

@@ -7,71 +7,73 @@
   )
 
 (defn addform-body []
-  [:div.addDogForm 
-   (form/form-to [:post "/add"]
-                 [:div.span-7.colborder
-                  (form/label "name" "Whats the name of the dog?")
-                  ]
-                 [:div.span-7.last
-                  (form/text-field "name")
-                  ]
-                 [:div.span-7.colborder
-                  (form/label "breed" "Whats the breed of the dog?")
-                  ]
-                 [:div.span-7.last
-                  (form/text-field "breed")
-                  ]
-                 [:div.span-7.colborder
-                  (form/label "weight" "How much does the dog weight?")
-                  ]
-                 [:div.span-7.last
-                  (form/text-field "weight")
-                  ]
-                 [:div.span-7.colborder
-                  (form/label "birth" "When was the dog born? YYYYMMDD, please")
-                  ]
-                 [:div.span-7.last
-                  (form/text-field "birth")
-                  ]
-                 
-                 [:div.span-7.colborder
-                  (form/label "location" "Where is the dog waiting for adoption?")
-                  ]
-                 [:div.span-7.last
-                  (form/text-field "location")
-                  ]
-                 
-                 [:div.span-7.colborder
-                  (form/label "sex" "What' the sex of the dog?")
-                  ]
-                 [:div.span-7.last
-                  (form/radio-button "sex" false "Male") 
-                  [:span "Male"]
-                  [:br]
-                  (form/radio-button "sex" false "Female") 
-                  [:span "Female"]
-                  ]
-                 [:div.span-7.colborder
-                  (form/label "neutered" "Has the dog been neutered?")
-                  ]
-                 [:div.span-7.last
-                  (form/check-box "neutered" false)
-                  ]
-                 [:div.span-7.colborder
-                  (form/label "category" "What kind of dog?")
-                  ]
-                 [:div.span-7.last
-                  [:select {:name "category"} (form/select-options ["Puppy" "Small" "Medium" "Big"])
-                   ]
-                  ]
-                 [:div.span-8
-                  [:span "&nbsp;"]
-                  ]
-                 [:div.span-7.last
-                  (form/submit-button "Add dog!")
-                  ]
-                 )
-   ]
+  (list [:div.addDogForm 
+         (form/form-to {:id "addDog"} [:post "/add"]
+                       [:div.span-7.colborder
+                        (form/label "name" "Whats the name of the dog?")
+                        ]
+                       [:div.span-7.last
+                        (form/text-field {:class "clear-field"} "name")
+                        ]
+                       [:div.span-7.colborder
+                        (form/label "breed" "Whats the breed of the dog?")
+                        ]
+                       [:div.span-7.last
+                        (form/text-field {:class "clear-field"}  "breed")
+                        ]
+                       [:div.span-7.colborder
+                        (form/label  "weight" "How much does the dog weight?")
+                        ]
+                       [:div.span-7.last
+                        (form/text-field  {:class "clear-field"}  "weight")
+                        ]
+                       [:div.span-7.colborder
+                        (form/label "birth" "When was the dog born? YYYYMMDD, please")
+                        ]
+                       [:div.span-7.last
+                        (form/text-field  {:class "clear-field"}  "birth")
+                        ]
+                       
+                       [:div.span-7.colborder
+                        (form/label "location" "Where is the dog waiting for adoption?")
+                        ]
+                       [:div.span-7.last
+                        (form/text-field  {:class "clear-field"}  "location")
+                        ]
+                       
+                       [:div.span-7.colborder
+                        (form/label "sex" "What' the sex of the dog?")
+                        ]
+                       [:div.span-7.last
+                        (form/radio-button  {:class "unselect-field"}  "sex" false "Male") 
+                        [:span "Male"]
+                        [:br]
+                        (form/radio-button {:class "unselect-field"} "sex" false "Female") 
+                        [:span "Female"]
+                        ]
+                       [:div.span-7.colborder
+                        (form/label "neutered" "Has the dog been neutered?")
+                        ]
+                       [:div.span-7.last
+                        (form/check-box {:class "unselect-field"} "neutered" false)
+                        ]
+                       [:div.span-7.colborder
+                        (form/label "category" "What kind of dog?")
+                        ]
+                       [:div.span-7.last
+                        [:select {:name "category"} (form/select-options ["Puppy" "Small" "Medium" "Big"])
+                         ]
+                        ]
+                       [:div.prepend-8.span-3
+                        (form/submit-button "Add dog!")
+                        ]
+                       [:div#wrapMss.last [:span#messageDiv  ""]]
+                       )
+         ]
+        [:hr.space]
+        [:div.prepend-5.last.boxsize [:span#errorDiv  ""]]
+        [:hr.space]
+        )
   )
   
 
@@ -134,7 +136,9 @@
   )
 (defn addform []
   (layout/common "Add a dog"
-                 {:subtitle '([:a {:href "/" } "These dogs"] " need a new home!")};otherboxes
+                 {:subtitle '([:a {:href "/" } "These dogs"] " need a new home!");otherboxes
+                  :javascript ["/js/add.js"]
+                  }
                  {};params 
                  (addform-body)
                  )

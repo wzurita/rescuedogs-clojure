@@ -28,7 +28,7 @@
   (def all-dog-vector 
     (conj all-dog-vector (extract-dog params))
     )
-  counter
+  (if (> (rand) 0.1) counter -1)
   )
 
 
