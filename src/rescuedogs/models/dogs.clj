@@ -15,15 +15,7 @@
    :weight (get params :weight  17)
    }
   )
-(def all-dog-vector  [
-                      {:id "20"
-                       :name "Jannike"
-                       :breed "Cocker/pudel"
-                       :sex "tik" :neutered false
-                       :birth "20130201"
-                       :location "Jourhem Knutby"
-                       :category "medium" :weight 10}
-                      ])
+(def all-dog-vector  [])
 (defn finddog [params] all-dog-vector)
 
 (defn hitCount [params]
@@ -34,7 +26,6 @@
   (def all-dog-vector
     (conj all-dog-vector (extract-dog params))
     )
-  (if (> (rand) 0.1) counter -1)
   )
 
 
