@@ -1,13 +1,15 @@
 # rescuedogs
 
-A Clojure library designed to ... well, that part is up to you.
+A very small site, for a supposed dog rescue organization. I just want to play a bit with clojure in my spare time.
 
-## Usage
+The idea is to have a main page listing the dogs available,
 
-FIXME
+To have each dog have a little page for itself,
+
+And a nice facetted search to look for available dogs by sex, age, etc.
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Wilian Zurita
 
 Distributed under the Eclipse Public License, the same as Clojure.
