@@ -7,7 +7,7 @@
   )
 
 (defn addform-body []
-  (list [:div.addDogForm 
+  (list [:div.addDogForm
          (form/form-to {:id "addDog"} [:post "/add"]
                        [:div.span-7.colborder
                         (form/label "name" "Whats the name of the dog?")
@@ -33,22 +33,22 @@
                        [:div.span-7.last
                         (form/text-field  {:class "clear-field"}  "birth")
                         ]
-                       
+
                        [:div.span-7.colborder
                         (form/label "location" "Where is the dog waiting for adoption?")
                         ]
                        [:div.span-7.last
                         (form/text-field  {:class "clear-field"}  "location")
                         ]
-                       
+
                        [:div.span-7.colborder
                         (form/label "sex" "What' the sex of the dog?")
                         ]
                        [:div.span-7.last
-                        (form/radio-button  {:class "unselect-field"}  "sex" false "Male") 
+                        (form/radio-button  {:class "unselect-field"}  "sex" false "Male")
                         [:span "Male"]
                         [:br]
-                        (form/radio-button {:class "unselect-field"} "sex" false "Female") 
+                        (form/radio-button {:class "unselect-field"} "sex" false "Female")
                         [:span "Female"]
                         ]
                        [:div.span-7.colborder
@@ -75,23 +75,23 @@
         [:hr.space]
         )
   )
-  
+
 
 (defn display-dog [dog]
   (def dogid (get dog :id))
-  (list [:div.listingImage 
-         [:a {:href (str "/dog?id=" dogid) :title ""} [:img {:alt (get dog :breed) :src (str "http://placedog.com/150/150?" (rand))}]] 
+  (list [:div.listingImage
+         [:a {:href (str "/dog?id=" dogid) :title ""} [:img {:alt (get dog :breed) :src (str "http://placedog.com/150/150?" (rand))}]]
          ]
-        [:div.listingText 
+        [:div.listingText
          [:a {:href (str "/dog?id=" dogid) }]
-         [:br] 
-         "Name:" (get dog :name) 
-         [:br] 
-         "Breed:" (get dog :breed) 
-         [:br] 
-         "Sex:" (get dog :sex) 
          [:br]
-         "Neutered:" (if (get dog :neutered) "yes" "no") 
+         "Name:" (get dog :name)
+         [:br]
+         "Breed:" (get dog :breed)
+         [:br]
+         "Sex:" (get dog :sex)
+         [:br]
+         "Neutered:" (if (get dog :neutered) "yes" "no")
          [:br]
          "Weight:" (get dog :weight)
          [:br]
@@ -110,23 +110,23 @@
      (fn [number dog] (if (= 2 (mod number 3)) (list [:div.span-5.last.dog (display-dog dog)] [:hr] [:hr.space]) [:div.span-4.dog.colborder (display-dog dog)]))
      (take items (drop (* items page) dogs)))
    ])
-  
+
 (defn show [dogs dogcount params]
-  (def items 
-    (try 
-      (Integer/parseInt (get params :items "10")) 
+  (def items
+    (try
+      (Integer/parseInt (get params :items "10"))
       (catch Exception e 10)
       )
     )
-  (def page 
-    (try 
-      (Integer/parseInt (get params :page "0")) 
+  (def page
+    (try
+      (Integer/parseInt (get params :page "0"))
       (catch Exception e 0)
       )
     )
-  (layout/common "All dogs" 
+  (layout/common "All dogs"
                  {:leftbox '(
-                              [:h6 "Add more dogs in need of rescue!"] 
+                              [:h6 "Add more dogs in need of rescue!"]
                               [:a {:href "/add"} "with this link!"]
                               )}
                  params
@@ -139,7 +139,7 @@
                  {:subtitle '([:a {:href "/" } "These dogs"] " need a new home!");otherboxes
                   :javascript ["/js/add.js"]
                   }
-                 {};params 
+                 {};params
                  (addform-body)
                  )
   )

@@ -1,4 +1,4 @@
-(ns rescuedogs.core 
+(ns rescuedogs.core
   (:use [compojure.core :only (defroutes)]
                              [ring.adapter.jetty :as ring])
   (:require [compojure.route :as route]
@@ -17,6 +17,6 @@
   (run-jetty application {:port port :join? false}))
 
 (defn -main []
-  (let [port (Integer/parseInt 
+  (let [port (Integer/parseInt
                (or (System/getenv "PORT") "8080"))]
     (start port)))
