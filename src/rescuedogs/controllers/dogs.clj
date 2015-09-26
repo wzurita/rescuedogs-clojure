@@ -16,12 +16,9 @@
 
 (defn postform [params]
   (def response (model/addDog params))
-  (if (> response 0)
-    (json/write-str {:response true :id response})
-    (json/write-str {:response false :message "error in the backend"})   
-    )
-  
+        (json/write-str {:response true :id rescuedogs.models.dogs/all-dog-vector})
   )
+
 
 (defroutes routes
            (GET "/" {params :params} (show params))

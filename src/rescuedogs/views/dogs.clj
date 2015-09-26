@@ -80,7 +80,7 @@
 (defn display-dog [dog]
   (def dogid (get dog :id))
   (list [:div.listingImage
-         [:a {:href (str "/dog?id=" dogid) :title ""} [:img {:alt (get dog :breed) :src (str "http://placedog.com/150/150?" (rand))}]]
+         [:a {:href (str "/dog?id=" dogid) :title ""} [:img {:alt (get dog :breed) :src (str "http://dummyimage.com/150x150/00f/fff?" (rand))}]]
          ]
         [:div.listingText
          [:a {:href (str "/dog?id=" dogid) }]
